@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Navbar } from './layout/Navbar';
+import { Footer } from './layout/Footer';
 
 export function ProtectedRoute() {
   const { isAuthenticated } = useAuth();
@@ -12,6 +13,7 @@ export function ProtectedRoute() {
       <main className="app-shell__content">
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }

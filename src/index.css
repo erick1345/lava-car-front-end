@@ -197,7 +197,7 @@ select.field__input option { background: var(--secondary); color: var(--light); 
 /* ---------------------------------------------------------------------
    Área logada (shell + navbar)
    --------------------------------------------------------------------- */
-.app-shell { min-height: 100vh; }
+.app-shell { display: flex; flex-direction: column; min-height: 100vh; }
 
 .navbar {
   position: sticky;
@@ -241,7 +241,8 @@ select.field__input option { background: var(--secondary); color: var(--light); 
 .navbar__link:hover::after { width: 100%; }
 .navbar__user { color: var(--gray); font-size: 0.85rem; }
 
-.app-shell__content, .page { max-width: 920px; margin: 0 auto; padding: 2.5rem 1.25rem; animation: fadeIn 0.4s ease; }
+.app-shell__content { flex: 1 0 auto; width: 100%; }
+.page { max-width: 920px; margin: 0 auto; padding: 2.5rem 1.25rem; animation: fadeIn 0.4s ease; }
 .page--wide { max-width: 1040px; }
 .page .card { max-width: 580px; margin: 0 auto; }
 
@@ -311,6 +312,47 @@ select.field__input option { background: var(--secondary); color: var(--light); 
 .badge-status--cancelado { background: rgba(214, 0, 0, 0.12); color: #ff6b6b; border-color: rgba(214, 0, 0, 0.35); }
 
 /* ---------------------------------------------------------------------
+   Rodapé
+   --------------------------------------------------------------------- */
+.footer {
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent);
+}
+.footer__inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 1.75rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
+}
+.footer__logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.footer__tagline { color: var(--gray); font-size: 0.9rem; margin: 0.7rem 0 0; max-width: 38ch; line-height: 1.6; }
+.footer__col { display: flex; flex-direction: column; gap: 0.6rem; }
+.footer__title {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 0.7rem;
+  color: var(--light);
+}
+.footer__link { color: var(--gray); font-size: 0.9rem; width: fit-content; transition: color var(--t); }
+.footer__link:hover { color: var(--primary); }
+.footer__muted { color: #5b5f66; font-size: 0.82rem; margin-top: 0.3rem; }
+.footer__bottom {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 1.2rem;
+  color: var(--gray);
+  font-size: 0.82rem;
+}
+
+/* ---------------------------------------------------------------------
    Responsivo
    --------------------------------------------------------------------- */
 @media (max-width: 640px) {
@@ -321,4 +363,5 @@ select.field__input option { background: var(--secondary); color: var(--light); 
   .toolbar { flex-direction: column; align-items: flex-start; }
   .card { padding: 1.75rem; }
   .table th:nth-child(2), .table td:nth-child(2) { display: none; }
+  .footer__inner { grid-template-columns: 1fr; gap: 1.75rem; }
 }

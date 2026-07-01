@@ -13,9 +13,9 @@ export function Navbar() {
 
   return (
     <header className="navbar">
-      <Link to="/" className="navbar__brand">🚗 Lava Car</Link>
+      <Link to="/painel" className="navbar__brand">🚗 Lava Car</Link>
       <nav className="navbar__menu">
-        <Link to="/" className="navbar__link">Início</Link>
+        <Link to="/painel" className="navbar__link">Início</Link>
         <Link to="/agendamentos" className="navbar__link">Agendamentos</Link>
         <Link to="/servicos" className="navbar__link">Serviços</Link>
         <Link to="/produtos" className="navbar__link">Estoque</Link>

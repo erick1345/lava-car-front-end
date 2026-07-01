@@ -42,7 +42,7 @@ export default function Login() {
     setLoading(true);
     try {
       login(await loginRequest(form));
-      navigate('/');
+      navigate('/painel');
     } catch (err) {
       setApiError(getApiErrorMessage(err));
     } finally {

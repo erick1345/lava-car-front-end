@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
@@ -14,10 +15,11 @@ import AgendamentoForm from './pages/agendamentos/AgendamentoForm';
 export default function App() {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Register />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/painel" element={<Home />} />
         <Route path="/perfil" element={<Profile />} />
         <Route path="/servicos" element={<ServicosList />} />
         <Route path="/servicos/novo" element={<ServicoForm />} />

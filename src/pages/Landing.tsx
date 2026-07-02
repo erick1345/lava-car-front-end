@@ -1,23 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 interface Servico {
-  icon: string;
+  img: string;
+  categoria: string;
   titulo: string;
   descricao: string;
+  duracao: string;
+  preco: string;
 }
 
 const SERVICOS: Servico[] = [
-  { icon: '🧼', titulo: 'Lavagem Técnica', descricao: 'Higienização detalhada da pintura, rodas e vidros com produtos premium.' },
-  { icon: '✨', titulo: 'Polimento Técnico', descricao: 'Correção de riscos e swirls, devolvendo o brilho profundo da pintura.' },
-  { icon: '💎', titulo: 'Cristalização', descricao: 'Proteção que realça o brilho e facilita a manutenção da lataria.' },
-  { icon: '🛡️', titulo: 'Vitrificação', descricao: 'Camada cerâmica de alta durabilidade contra sol, chuva e contaminantes.' },
-  { icon: '🧴', titulo: 'Higienização Interna', descricao: 'Limpeza profunda de bancos, forração e ar-condicionado.' },
-  { icon: '🔧', titulo: 'Lavagem de Motor', descricao: 'Remoção segura de sujeira e oleosidade do compartimento do motor.' },
-  { icon: '🪄', titulo: 'Revitalização de Plásticos', descricao: 'Recuperação da cor e do acabamento de plásticos internos e externos.' },
-  { icon: '🏆', titulo: 'Detalhamento Completo', descricao: 'O pacote definitivo: pintura, interior, motor e proteção em um só serviço.' }
+  { img: '/img/servico-lavagem.jpg', categoria: 'Lavagem', titulo: 'Lavagem Premium', descricao: 'Lavagem externa e interna com produtos premium, secagem com microfibra e finalização.', duracao: '1h', preco: 'R$ 89,00' },
+  { img: '/img/servico-interior.jpg', categoria: 'Interior', titulo: 'Higienização Completa', descricao: 'Limpeza profunda de bancos, forração, teto e carpetes. Elimina odores e ácaros.', duracao: '4h', preco: 'R$ 399,00' },
+  { img: '/img/servico-polimento.jpg', categoria: 'Polimento', titulo: 'Polimento Técnico', descricao: 'Correção de pintura em 2 a 3 passos, remove hologramas e microriscos.', duracao: '6h', preco: 'R$ 799,00' },
+  { img: '/img/servico-cristalizacao.jpg', categoria: 'Proteção', titulo: 'Cristalização', descricao: 'Selamento da pintura com efeito espelhado e proteção UV por até 6 meses.', duracao: '2h', preco: 'R$ 249,00' },
+  { img: '/img/servico-vitrificacao.jpg', categoria: 'Proteção', titulo: 'Vitrificação Cerâmica', descricao: 'Camada cerâmica de alta durabilidade contra sol, chuva e contaminantes.', duracao: '5h', preco: 'R$ 1.200,00' },
+  { img: '/img/servico-detalhamento.jpg', categoria: 'Premium', titulo: 'Detalhamento Completo', descricao: 'O pacote definitivo: pintura, interior, motor e proteção em um só serviço.', duracao: '8h', preco: 'R$ 1.500,00' }
 ];
 
 const DIFERENCIAIS = [
@@ -29,28 +30,24 @@ const DIFERENCIAIS = [
   { icon: '⚙️', titulo: 'Tecnologia de Ponta' }
 ];
 
-interface Stat {
-  alvo: number;
-  sufixo: string;
-  rotulo: string;
-}
-
-const STATS: Stat[] = [
-  { alvo: 1000, sufixo: '+', rotulo: 'veículos atendidos' },
-  { alvo: 500, sufixo: '+', rotulo: 'clientes satisfeitos' },
-  { alvo: 5, sufixo: '', rotulo: 'anos de experiência' },
-  { alvo: 98, sufixo: '%', rotulo: 'de satisfação' }
-];
-
 const DEPOIMENTOS = [
   { nome: 'Rafael M.', texto: 'Meu carro saiu como novo. Acabamento impecável e atendimento nota 10.' },
   { nome: 'Juliana S.', texto: 'A vitrificação durou muito além do que eu esperava. Recomendo demais.' },
   { nome: 'Carlos E.', texto: 'Profissionais que realmente entendem de detailing. Virei cliente fiel.' }
 ];
 
+const UNIDADES = [
+  { nome: 'Unidade Centro', endereco: 'Av. Exemplo, 999 — Centro', telefone: '(16) 99999-0001', horario: 'Seg a Sex 08h–18h · Sáb 08h–14h' },
+  { nome: 'Unidade Zona Sul', endereco: 'Rua Modelo, 1488 — Jardim Sul', telefone: '(16) 99999-0002', horario: 'Seg a Sex 08h–18h · Sáb 08h–14h' },
+  { nome: 'Unidade Express', endereco: 'Rua Rápida, 890 — Vila Prado', telefone: '(16) 99999-0003', horario: 'Seg a Sex 08h–18h · Sáb 08h–14h' }
+];
+
+const WHATSAPP = 'https://wa.me/5516999990001';
+
 export default function Landing() {
   const { isAuthenticated } = useAuth();
   const [scrolled, setScrolled] = useState(false);
+  const [pos, setPos] = useState(50);
   const [enviado, setEnviado] = useState(false);
 
   useEffect(() => {
@@ -68,53 +65,75 @@ export default function Landing() {
     <div className="lp">
       {/* NAVBAR */}
       <header className={`lp-nav ${scrolled ? 'lp-nav--solid' : ''}`}>
-        <a href="#top" className="lp-nav__brand">LAVA CAR</a>
+        <a href="#top" className="lp-nav__brand"><span className="lp-nav__logo">◆</span> Lava Car</a>
         <nav className="lp-nav__menu">
+          <a href="#top" className="lp-nav__link">Início</a>
           <a href="#servicos" className="lp-nav__link">Serviços</a>
-          <a href="#diferenciais" className="lp-nav__link">Diferenciais</a>
-          <a href="#sobre" className="lp-nav__link">Sobre</a>
+          <a href="#resultados" className="lp-nav__link">Antes & Depois</a>
+          <a href="#unidades" className="lp-nav__link">Unidades</a>
           <a href="#contato" className="lp-nav__link">Contato</a>
-          <Link to={isAuthenticated ? '/painel' : '/login'} className="lp-btn lp-btn--sm">
-            {isAuthenticated ? 'Meu painel' : 'Entrar'}
+          <Link to={isAuthenticated ? '/painel' : '/login'} className="lp-btn lp-btn--primary lp-btn--sm">
+            {isAuthenticated ? 'Meu painel' : 'Agendar Agora'}
           </Link>
         </nav>
       </header>
 
       {/* HERO */}
       <section id="top" className="lp-hero">
+        <div className="lp-hero__overlay" />
         <div className="lp-hero__content">
-          <span className="lp-hero__tag">Estética Automotiva Premium</span>
-          <h1 className="lp-hero__title">LAVA CAR</h1>
+          <span className="lp-badge"><span className="lp-nav__logo">◆</span> Estética Automotiva Premium</span>
+          <h1 className="lp-hero__title">
+            Cuidamos do seu carro <span className="lp-accent">como se fosse nosso.</span>
+          </h1>
           <p className="lp-hero__sub">
-            Cuidado técnico, produtos premium e acabamento profissional.
-            Seu carro tratado como merece.
+            Higienização, polimento, cristalização, lavagem premium e muito mais.
+            Serviço técnico executado por profissionais que amam o que fazem.
           </p>
           <div className="lp-hero__actions">
-            <Link to="/cadastro" className="lp-btn lp-btn--primary">Agendar serviço</Link>
-            <a href="#servicos" className="lp-btn lp-btn--outline">Conheça nossos serviços</a>
+            <Link to="/cadastro" className="lp-btn lp-btn--primary">Agendar Agora →</Link>
+            <a href="#servicos" className="lp-btn lp-btn--dark">Ver Serviços</a>
+          </div>
+          <div className="lp-hero__stats">
+            <div><strong>+2.5k</strong><span>Carros atendidos</span></div>
+            <div><strong>4.9</strong><span>Avaliação média</span></div>
+            <div><strong>10+</strong><span>Anos de experiência</span></div>
           </div>
         </div>
       </section>
 
       {/* SERVIÇOS */}
       <section id="servicos" className="lp-section">
-        <div className="lp-section__head">
-          <span className="lp-eyebrow">O que fazemos</span>
-          <h2 className="lp-section__title">Nossos serviços</h2>
+        <div className="lp-section__head lp-section__head--left">
+          <div>
+            <span className="lp-eyebrow">O que fazemos</span>
+            <h2 className="lp-section__title">Serviços que entregamos</h2>
+            <p className="lp-section__text">Do brilho de show-room à proteção cerâmica de longa duração.</p>
+          </div>
         </div>
         <div className="lp-servicos">
           {SERVICOS.map((s) => (
-            <article key={s.titulo} className="lp-card">
-              <span className="lp-card__icon">{s.icon}</span>
-              <h3 className="lp-card__title">{s.titulo}</h3>
-              <p className="lp-card__desc">{s.descricao}</p>
+            <article key={s.titulo} className="lp-scard">
+              <div className="lp-scard__media">
+                <img src={s.img} alt={s.titulo} loading="lazy" />
+              </div>
+              <div className="lp-scard__body">
+                <span className="lp-scard__cat">{s.categoria}</span>
+                <h3 className="lp-scard__title">{s.titulo}</h3>
+                <p className="lp-scard__desc">{s.descricao}</p>
+                <div className="lp-scard__meta">
+                  <span className="lp-scard__time">🕒 {s.duracao}</span>
+                  <span className="lp-scard__price">{s.preco}</span>
+                </div>
+                <Link to="/cadastro" className="lp-btn lp-btn--primary lp-scard__btn">Agendar</Link>
+              </div>
             </article>
           ))}
         </div>
       </section>
 
       {/* DIFERENCIAIS */}
-      <section id="diferenciais" className="lp-section lp-section--dark">
+      <section className="lp-section lp-section--dark">
         <div className="lp-section__head">
           <span className="lp-eyebrow">Por que a Lava Car</span>
           <h2 className="lp-section__title">Nossos diferenciais</h2>
@@ -129,21 +148,29 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* SOBRE / NÚMEROS */}
-      <section id="sobre" className="lp-section">
+      {/* ANTES & DEPOIS */}
+      <section id="resultados" className="lp-section">
         <div className="lp-section__head">
-          <span className="lp-eyebrow">Sobre nós</span>
-          <h2 className="lp-section__title">Experiência que aparece no resultado</h2>
-          <p className="lp-section__text">
-            Somos apaixonados por carros e por detalhes. Cada veículo passa por um
-            processo rigoroso, com produtos de alto padrão e uma equipe especializada
-            em detailing automotivo.
-          </p>
+          <span className="lp-eyebrow">Resultados</span>
+          <h2 className="lp-section__title">Antes & depois</h2>
+          <p className="lp-section__text">Arraste para ver a diferença que um trabalho técnico faz.</p>
         </div>
-        <div className="lp-stats">
-          {STATS.map((s) => (
-            <Counter key={s.rotulo} alvo={s.alvo} sufixo={s.sufixo} rotulo={s.rotulo} />
-          ))}
+        <div className="lp-ba">
+          <img className="lp-ba__base" src="/img/antes.jpg" alt="Antes do serviço" />
+          <div className="lp-ba__after" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+            <img src="/img/depois.jpg" alt="Depois do serviço" />
+          </div>
+          <div className="lp-ba__divider" style={{ left: `${pos}%` }}>
+            <span className="lp-ba__handle">⇆</span>
+          </div>
+          <span className="lp-ba__tag lp-ba__tag--l">Antes</span>
+          <span className="lp-ba__tag lp-ba__tag--r">Depois</span>
+          <input
+            className="lp-ba__range"
+            type="range" min="0" max="100" value={pos}
+            onChange={(e) => setPos(Number(e.target.value))}
+            aria-label="Comparar antes e depois"
+          />
         </div>
       </section>
 
@@ -167,18 +194,48 @@ export default function Landing() {
       {/* CTA */}
       <section className="lp-cta">
         <h2 className="lp-cta__title">Seu carro merece um tratamento premium.</h2>
-        <Link to="/cadastro" className="lp-btn lp-btn--dark">Solicitar orçamento</Link>
+        <a href={WHATSAPP} target="_blank" rel="noreferrer" className="lp-btn lp-btn--wpp">💬 Agende pelo WhatsApp</a>
+      </section>
+
+      {/* UNIDADES + MAPA */}
+      <section id="unidades" className="lp-section">
+        <div className="lp-section__head">
+          <span className="lp-eyebrow">Onde estamos</span>
+          <h2 className="lp-section__title">Nossas unidades</h2>
+          <p className="lp-section__text">Escolha a unidade mais próxima e agende seu horário.</p>
+        </div>
+        <div className="lp-unidades">
+          <div className="lp-unidades__list">
+            {UNIDADES.map((u, i) => (
+              <article key={u.nome} className={`lp-unit ${i === 0 ? 'lp-unit--active' : ''}`}>
+                <h3 className="lp-unit__title">📍 {u.nome}</h3>
+                <p className="lp-unit__addr">{u.endereco}</p>
+                <p className="lp-unit__line">📞 {u.telefone}</p>
+                <p className="lp-unit__line">🕒 {u.horario}</p>
+                <a href={WHATSAPP} target="_blank" rel="noreferrer" className="lp-btn lp-btn--wpp lp-unit__btn">WhatsApp</a>
+              </article>
+            ))}
+          </div>
+          <div className="lp-map">
+            <iframe
+              title="Mapa das unidades"
+              src="https://maps.google.com/maps?q=Av.%20Exemplo%2C%20999%20Centro&z=14&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
       </section>
 
       {/* CONTATO */}
-      <section id="contato" className="lp-section">
+      <section id="contato" className="lp-section lp-section--dark">
         <div className="lp-section__head">
           <span className="lp-eyebrow">Fale conosco</span>
           <h2 className="lp-section__title">Contato</h2>
         </div>
         <div className="lp-contato">
           <ul className="lp-contato__info">
-            <li><strong>WhatsApp:</strong> (00) 99999-9999</li>
+            <li><strong>WhatsApp:</strong> (16) 99999-0001</li>
             <li><strong>Instagram:</strong> @lavacar</li>
             <li><strong>Endereço:</strong> Av. Exemplo, 999 — Centro</li>
             <li><strong>Horário:</strong> Seg a Sáb, 08h às 18h</li>
@@ -200,45 +257,30 @@ export default function Landing() {
 
       {/* RODAPÉ */}
       <footer className="lp-footer">
-        <span className="lp-footer__brand">LAVA CAR</span>
-        <span className="lp-footer__copy">© {new Date().getFullYear()} Lava Car — Estética Automotiva Premium.</span>
+        <div className="lp-footer__inner">
+          <div className="lp-footer__col">
+            <span className="lp-footer__brand"><span className="lp-nav__logo">◆</span> Lava Car</span>
+            <p className="lp-footer__about">Excelência em estética automotiva. Transformamos veículos com técnicas avançadas e produtos premium.</p>
+          </div>
+          <div className="lp-footer__col">
+            <h4 className="lp-footer__title">Contato</h4>
+            <p>📞 (16) 99999-0001</p>
+            <p>📍 Av. Exemplo, 999 — Centro</p>
+            <p>🕒 Seg a Sáb, 08h às 18h</p>
+          </div>
+          <div className="lp-footer__col">
+            <h4 className="lp-footer__title">Redes sociais</h4>
+            <div className="lp-footer__social">
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">Instagram</a>
+              <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">Facebook</a>
+              <a href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="WhatsApp">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+        <div className="lp-footer__bottom">
+          © {new Date().getFullYear()} Lava Car — Estética Automotiva. Todos os direitos reservados.
+        </div>
       </footer>
-    </div>
-  );
-}
-
-interface CounterProps {
-  alvo: number;
-  sufixo: string;
-  rotulo: string;
-}
-
-function Counter({ alvo, sufixo, rotulo }: CounterProps) {
-  const [valor, setValor] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      observer.disconnect();
-      const inicio = performance.now();
-      const passo = (agora: number) => {
-        const p = Math.min((agora - inicio) / 1400, 1);
-        setValor(Math.round(p * alvo));
-        if (p < 1) requestAnimationFrame(passo);
-      };
-      requestAnimationFrame(passo);
-    }, { threshold: 0.4 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [alvo]);
-
-  return (
-    <div className="lp-stat" ref={ref}>
-      <span className="lp-stat__num">{valor}{sufixo}</span>
-      <span className="lp-stat__label">{rotulo}</span>
     </div>
   );
 }

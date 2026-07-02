@@ -69,7 +69,7 @@ export default function Landing() {
           <a href="#servicos" className="lp-nav__link">Serviços</a>
           <Link to="/galeria" className="lp-nav__link">Galeria</Link>
           <a href="#contato" className="lp-nav__link">Contato</a>
-          <a href="#contato" className="lp-btn lp-btn--primary lp-btn--sm">Agendar Agora</a>
+          <Link to="/agendar" className="lp-btn lp-btn--primary lp-btn--sm">Agendar Agora</Link>
         </nav>
       </header>
 
@@ -86,7 +86,7 @@ export default function Landing() {
             Serviço técnico executado por profissionais que amam o que fazem.
           </p>
           <div className="lp-hero__actions">
-            <a href="#contato" className="lp-btn lp-btn--primary">Agendar Agora →</a>
+            <Link to="/agendar" className="lp-btn lp-btn--primary">Agendar Agora →</Link>
             <a href="#servicos" className="lp-btn lp-btn--dark">Ver Serviços</a>
           </div>
           <div className="lp-hero__stats">
@@ -120,7 +120,7 @@ export default function Landing() {
                   <span className="lp-scard__time">🕒 {s.duracao}</span>
                   <span className="lp-scard__price">{s.preco}</span>
                 </div>
-                <a href="#contato" className="lp-btn lp-btn--primary lp-scard__btn">Agendar</a>
+                <Link to="/agendar" className="lp-btn lp-btn--primary lp-scard__btn">Agendar</Link>
               </div>
             </article>
           ))}

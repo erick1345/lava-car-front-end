@@ -75,3 +75,28 @@ export interface CreateAgendamentoDTO {
   data_agendada: string;
   horario: string;
 }
+
+// ---------- Reservas (agendamento público) ----------
+export interface SlotDisponivel {
+  horario: string;
+  disponivel: boolean;
+}
+
+export interface Disponibilidade {
+  data: string;
+  slots: SlotDisponivel[];
+  lotado: boolean;
+}
+
+export interface CreateReservaDTO {
+  cliente_nome: string;
+  cliente_telefone: string;
+  servico: string;
+  data_agendada: string;
+  horario: string;
+}
+
+export interface ReservaCriada {
+  id: number;
+  pix: { copia_e_cola: string; instrucao: string };
+}

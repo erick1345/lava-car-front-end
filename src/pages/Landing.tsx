@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { BeforeAfter } from '../components/BeforeAfter';
+import { Carousel } from '../components/Carousel';
 
 interface Servico {
   img: string;
@@ -43,6 +44,11 @@ const UNIDADES = [
 ];
 
 const WHATSAPP = 'https://wa.me/5516999990001';
+
+const SHOWCASE = [
+  '/img/galeria-1.jpg', '/img/servico-polimento.jpg', '/img/servico-detalhamento.jpg',
+  '/img/hero.jpg', '/img/servico-vitrificacao.jpg', '/img/galeria-4.jpg', '/img/galeria-6.jpg'
+];
 
 export default function Landing() {
   const [scrolled, setScrolled] = useState(false);
@@ -173,10 +179,17 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="lp-cta">
-        <h2 className="lp-cta__title">Seu carro merece um tratamento premium.</h2>
-        <a href={WHATSAPP} target="_blank" rel="noreferrer" className="lp-btn lp-btn--wpp">💬 Agende pelo WhatsApp</a>
+      {/* SHOWCASE / CARROSSEL */}
+      <section className="lp-section lp-section--dark">
+        <div className="lp-section__head">
+          <span className="lp-eyebrow">Nosso trabalho</span>
+          <h2 className="lp-section__title">Conheça a <span className="lp-hl">Lava Car</span></h2>
+        </div>
+        <Carousel imagens={SHOWCASE} />
+        <div className="lp-cta-inline">
+          <h3 className="lp-cta-inline__title">Seu carro no nível <span className="lp-hl">premium</span></h3>
+          <a href={WHATSAPP} target="_blank" rel="noreferrer" className="lp-btn lp-btn--wpp">💬 Agende pelo WhatsApp</a>
+        </div>
       </section>
 
       {/* UNIDADES + MAPA */}

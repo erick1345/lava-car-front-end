@@ -4,7 +4,7 @@
    Paleta: preto / grafite / branco / vermelho. Tipografia display + sans.
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap');
 
 /* ---------------------------------------------------------------------
    Design tokens
@@ -356,88 +356,105 @@ select.field__input option { background: var(--secondary); color: var(--light); 
    LANDING PAGE (site público) — estilo detailing premium
    ===================================================================== */
 .lp { color: var(--light); }
+.lp-accent { color: var(--primary); display: block; }
+.lp-nav__logo { color: var(--primary); }
 
 /* ---- Navbar da landing (transparente → sólida ao rolar) ---- */
 .lp-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 1.4rem clamp(1rem, 5vw, 4rem);
+  padding: 1.3rem clamp(1.25rem, 5vw, 4rem);
   transition: background var(--t), padding var(--t), border-color var(--t), backdrop-filter var(--t);
   border-bottom: 1px solid transparent;
 }
 .lp-nav--solid {
-  padding: 0.9rem clamp(1rem, 5vw, 4rem);
+  padding: 0.8rem clamp(1.25rem, 5vw, 4rem);
   background: rgba(5, 5, 5, 0.82);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(14px);
 }
 .lp-nav__brand {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 3px;
-  color: var(--light); text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--light);
 }
 .lp-nav__brand:hover { color: var(--light); }
-.lp-nav__menu { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.2rem); }
+.lp-nav__menu { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2rem); }
 .lp-nav__link { color: var(--gray); font-size: 0.9rem; font-weight: 500; transition: color var(--t); }
 .lp-nav__link:hover { color: var(--light); }
 
-/* ---- Botões da landing ---- */
+/* ---- Botões da landing (pill) ---- */
 .lp-btn {
-  display: inline-block; padding: 0.9rem 1.8rem; border-radius: 10px;
-  font-weight: 600; letter-spacing: 0.02em; font-size: 0.95rem;
+  display: inline-block; padding: 0.85rem 1.7rem; border-radius: 999px;
+  font-weight: 600; letter-spacing: 0.01em; font-size: 0.95rem; text-align: center;
   transition: transform var(--t), box-shadow var(--t), background var(--t), color var(--t), border-color var(--t);
   border: 1px solid transparent; cursor: pointer;
 }
-.lp-btn--sm { padding: 0.55rem 1.1rem; font-size: 0.85rem; }
+.lp-btn--sm { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
 .lp-btn--primary { background: linear-gradient(180deg, var(--primary-strong), var(--primary)); color: #fff; box-shadow: 0 8px 22px rgba(214,0,0,0.30); }
 .lp-btn--primary:hover { transform: translateY(-2px); box-shadow: var(--glow); color: #fff; }
-.lp-btn--outline { border-color: var(--border-strong); color: var(--light); }
-.lp-btn--outline:hover { border-color: var(--primary); color: #fff; transform: translateY(-2px); }
-.lp-btn--dark { background: #050505; color: #fff; }
+.lp-btn--dark { background: #0a0a0c; color: #fff; border-color: var(--border-strong); }
 .lp-btn--dark:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); color: #fff; }
-.lp-nav__menu .lp-btn--sm { background: linear-gradient(180deg, var(--primary-strong), var(--primary)); color: #fff; }
-.lp-nav__menu .lp-btn--sm:hover { transform: translateY(-1px); box-shadow: var(--glow); }
+.lp-btn--wpp { background: #22a559; color: #fff; }
+.lp-btn--wpp:hover { background: #1c9150; transform: translateY(-2px); color: #fff; }
 
-/* ---- Hero ---- */
+/* ---- Hero (foto de fundo) ---- */
 .lp-hero {
-  min-height: 100vh; display: grid; align-items: center;
-  padding: 6rem clamp(1rem, 5vw, 4rem) 3rem;
+  position: relative; min-height: 100vh; display: grid; align-items: center;
+  padding: 7rem clamp(1.25rem, 6vw, 5rem) 3rem;
   background:
-    radial-gradient(1100px 700px at 75% 20%, rgba(214,0,0,0.22), transparent 60%),
-    linear-gradient(180deg, #0a0a0b 0%, var(--dark) 70%),
-    repeating-linear-gradient(115deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 26px);
+    linear-gradient(90deg, rgba(5,5,5,0.94) 0%, rgba(5,5,5,0.6) 55%, rgba(5,5,5,0.25) 100%),
+    url('/img/hero.jpg');
+  background-size: cover; background-position: center;
 }
-.lp-hero__content { max-width: 780px; animation: slideUp 0.7s ease both; }
-.lp-hero__tag {
-  display: inline-block; text-transform: uppercase; letter-spacing: 0.25em;
-  color: var(--primary); font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem;
+.lp-hero__overlay { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(800px 500px at 12% 65%, rgba(214,0,0,0.20), transparent 60%); }
+.lp-hero__content { position: relative; max-width: 720px; animation: slideUp 0.7s ease both; }
+.lp-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.4rem;
+  padding: 0.4rem 0.95rem; border: 1px solid var(--border-strong); border-radius: 999px;
+  background: rgba(255,255,255,0.05); font-size: 0.8rem; backdrop-filter: blur(6px);
 }
 .lp-hero__title {
-  font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 12vw, 9rem);
-  line-height: 0.92; margin: 0; text-transform: uppercase; letter-spacing: 2px;
+  font-family: 'Poppins', sans-serif; font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.05; letter-spacing: -1px; margin: 0;
 }
-.lp-hero__sub { color: var(--gray); font-size: clamp(1rem, 2vw, 1.25rem); max-width: 40ch; margin: 1.25rem 0 2.2rem; line-height: 1.6; }
+.lp-hero__sub { color: var(--gray); font-size: clamp(1rem, 2vw, 1.2rem); max-width: 46ch; margin: 1.4rem 0 2.2rem; line-height: 1.7; }
 .lp-hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+.lp-hero__stats { display: flex; gap: clamp(1.5rem, 5vw, 3.5rem); margin-top: 3rem; }
+.lp-hero__stats div { display: flex; flex-direction: column; }
+.lp-hero__stats strong { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.lp-hero__stats span { color: var(--gray); font-size: 0.85rem; margin-top: 0.15rem; }
 
 /* ---- Seções ---- */
-.lp-section { padding: clamp(3.5rem, 8vw, 6.5rem) clamp(1rem, 5vw, 4rem); max-width: 1200px; margin: 0 auto; }
+.lp-section { padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem); max-width: 1200px; margin: 0 auto; }
 .lp-section--dark { max-width: none; background: linear-gradient(180deg, #0a0a0b, var(--dark)); border-block: 1px solid var(--border); }
 .lp-section--dark > * { max-width: 1200px; margin-inline: auto; }
 .lp-section__head { text-align: center; margin-bottom: 3rem; }
-.lp-eyebrow { text-transform: uppercase; letter-spacing: 0.25em; color: var(--primary); font-size: 0.78rem; font-weight: 600; }
-.lp-section__title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.4rem); margin: 0.5rem 0 0; text-transform: uppercase; }
+.lp-section__head--left { text-align: left; display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; }
+.lp-section__head--left .lp-section__title, .lp-section__head--left .lp-section__text { margin-left: 0; margin-right: 0; }
+.lp-eyebrow { text-transform: uppercase; letter-spacing: 0.22em; color: var(--primary); font-size: 0.76rem; font-weight: 700; }
+.lp-section__title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: clamp(2rem, 4.5vw, 3rem); margin: 0.4rem 0 0; letter-spacing: -0.5px; }
 .lp-section__text { color: var(--gray); max-width: 60ch; margin: 1rem auto 0; line-height: 1.7; }
 
-/* ---- Serviços (cards) ---- */
-.lp-servicos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
-.lp-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
-  border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem;
+/* ---- Serviços (cards com imagem) ---- */
+.lp-servicos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.75rem; }
+.lp-scard {
+  display: flex; flex-direction: column; background: #0d0d10;
+  border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
   transition: transform var(--t), border-color var(--t), box-shadow var(--t);
 }
-.lp-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: var(--shadow); }
-.lp-card__icon { font-size: 2.4rem; display: block; margin-bottom: 1rem; }
-.lp-card__title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.5px; margin: 0 0 0.6rem; text-transform: uppercase; }
-.lp-card__desc { color: var(--gray); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+.lp-scard:hover { transform: translateY(-6px); border-color: rgba(214,0,0,0.5); box-shadow: var(--shadow); }
+.lp-scard__media { aspect-ratio: 16 / 10; overflow: hidden; }
+.lp-scard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.lp-scard:hover .lp-scard__media img { transform: scale(1.06); }
+.lp-scard__body { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.55rem; flex: 1; }
+.lp-scard__cat { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.7rem; font-weight: 700; color: var(--primary); }
+.lp-scard__title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.25rem; margin: 0; }
+.lp-scard__desc { color: var(--gray); font-size: 0.9rem; line-height: 1.6; margin: 0; flex: 1; }
+.lp-scard__meta { display: flex; align-items: center; justify-content: space-between; margin-top: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--border); }
+.lp-scard__time { color: var(--gray); font-size: 0.85rem; }
+.lp-scard__price { color: var(--primary); font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.2rem; }
+.lp-scard__btn { width: 100%; margin-top: 0.5rem; }
 
 /* ---- Diferenciais ---- */
 .lp-dif { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; }
@@ -450,11 +467,24 @@ select.field__input option { background: var(--secondary); color: var(--light); 
 .lp-dif__icon { font-size: 1.8rem; }
 .lp-dif__label { font-weight: 600; }
 
-/* ---- Números / stats ---- */
-.lp-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-.lp-stat { text-align: center; padding: 1.5rem; border: 1px solid var(--border); border-radius: 16px; }
-.lp-stat__num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.6rem, 6vw, 3.6rem); color: var(--primary); display: block; line-height: 1; }
-.lp-stat__label { color: var(--gray); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; }
+/* ---- Antes & Depois (comparador arrastável) ---- */
+.lp-ba {
+  position: relative; max-width: 1000px; margin: 0 auto; aspect-ratio: 16 / 9;
+  border-radius: 18px; overflow: hidden; border: 1px solid var(--border); user-select: none;
+}
+.lp-ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.lp-ba__after { position: absolute; inset: 0; }
+.lp-ba__divider { position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; transform: translateX(-1px); pointer-events: none; }
+.lp-ba__handle {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff;
+  display: grid; place-items: center; box-shadow: 0 4px 14px rgba(0,0,0,0.45); font-size: 1.1rem;
+}
+.lp-ba__tag { position: absolute; top: 1rem; padding: 0.3rem 0.85rem; border-radius: 999px;
+  background: rgba(0,0,0,0.6); font-size: 0.8rem; font-weight: 600; backdrop-filter: blur(4px); }
+.lp-ba__tag--l { left: 1rem; }
+.lp-ba__tag--r { right: 1rem; }
+.lp-ba__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
 
 /* ---- Depoimentos ---- */
 .lp-depo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
@@ -464,11 +494,22 @@ select.field__input option { background: var(--secondary); color: var(--light); 
 .lp-depo__name { color: var(--gray); font-weight: 600; font-size: 0.9rem; }
 
 /* ---- CTA ---- */
-.lp-cta {
-  text-align: center; padding: clamp(3.5rem, 8vw, 6rem) 1.5rem;
-  background: linear-gradient(180deg, var(--primary), #a00000);
-}
-.lp-cta__title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 6vw, 3.6rem); margin: 0 0 1.75rem; text-transform: uppercase; color: #fff; letter-spacing: 1px; }
+.lp-cta { text-align: center; padding: clamp(3.5rem, 8vw, 6rem) 1.5rem; background: linear-gradient(180deg, var(--primary), #a00000); }
+.lp-cta__title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: clamp(2rem, 6vw, 3.2rem); margin: 0 0 1.75rem; color: #fff; letter-spacing: -0.5px; }
+.lp-cta .lp-btn--wpp { background: #0f1512; border: 1px solid rgba(255,255,255,0.25); }
+.lp-cta .lp-btn--wpp:hover { background: #22a559; }
+
+/* ---- Unidades + Mapa ---- */
+.lp-unidades { display: grid; grid-template-columns: 1fr 1.25fr; gap: 2rem; align-items: stretch; }
+.lp-unidades__list { display: flex; flex-direction: column; gap: 1rem; }
+.lp-unit { border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.4rem; background: rgba(255,255,255,0.02); }
+.lp-unit--active { border-color: var(--primary); box-shadow: 0 0 0 1px rgba(214,0,0,0.3); }
+.lp-unit__title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.05rem; margin: 0 0 0.5rem; color: var(--primary); }
+.lp-unit__addr { margin: 0 0 0.4rem; font-weight: 600; }
+.lp-unit__line { margin: 0 0 0.3rem; color: var(--gray); font-size: 0.88rem; }
+.lp-unit__btn { margin-top: 0.7rem; }
+.lp-map { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); min-height: 380px; }
+.lp-map iframe { display: block; width: 100%; height: 100%; min-height: 380px; border: 0; filter: grayscale(0.4) invert(0.92) hue-rotate(180deg); }
 
 /* ---- Contato ---- */
 .lp-contato { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
@@ -477,7 +518,7 @@ select.field__input option { background: var(--secondary); color: var(--light); 
 .lp-contato__info strong { color: var(--light); }
 .lp-form { display: flex; flex-direction: column; gap: 1rem; }
 .lp-input {
-  background: var(--dark-2); border: 1px solid var(--border-strong); border-radius: 10px;
+  background: var(--dark-2); border: 1px solid var(--border-strong); border-radius: 12px;
   padding: 0.85rem 1rem; color: var(--light); font-family: inherit; font-size: 1rem; outline: none;
   transition: border-color var(--t), box-shadow var(--t); resize: vertical;
 }
@@ -485,18 +526,25 @@ select.field__input option { background: var(--secondary); color: var(--light); 
 .lp-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(214,0,0,0.18); }
 .lp-form__ok { color: #4ade80; }
 
-/* ---- Rodapé da landing ---- */
-.lp-footer {
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-  padding: 2rem clamp(1rem, 5vw, 4rem); border-top: 1px solid var(--border); background: #050505;
-}
-.lp-footer__brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; }
-.lp-footer__copy { color: var(--gray); font-size: 0.82rem; }
+/* ---- Rodapé (com localização e contato) ---- */
+.lp-footer { border-top: 1px solid var(--border); background: #050505; }
+.lp-footer__inner { max-width: 1200px; margin: 0 auto; padding: 3rem clamp(1.25rem, 5vw, 4rem) 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; }
+.lp-footer__brand { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.4rem; margin-bottom: 0.8rem; }
+.lp-footer__about { color: var(--gray); font-size: 0.9rem; line-height: 1.7; max-width: 38ch; margin: 0; }
+.lp-footer__title { font-family: 'Poppins', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.9rem; margin: 0 0 0.9rem; }
+.lp-footer__col p { color: var(--gray); font-size: 0.9rem; margin: 0 0 0.5rem; }
+.lp-footer__social { display: flex; flex-direction: column; gap: 0.5rem; }
+.lp-footer__social a { color: var(--gray); font-size: 0.9rem; width: fit-content; }
+.lp-footer__social a:hover { color: var(--primary); }
+.lp-footer__bottom { border-top: 1px solid var(--border); text-align: center; padding: 1.2rem; color: var(--gray); font-size: 0.82rem; }
 
-@media (max-width: 720px) {
-  .lp-nav__menu { gap: 0.9rem; }
+@media (max-width: 860px) {
   .lp-nav__link { display: none; }
+  .lp-unidades { grid-template-columns: 1fr; }
   .lp-contato { grid-template-columns: 1fr; }
+  .lp-footer__inner { grid-template-columns: 1fr; }
+  .lp-hero__stats { flex-wrap: wrap; gap: 1.5rem 2.5rem; }
+  .lp-section__head--left { flex-direction: column; align-items: flex-start; }
 }
 
 /* ---------------------------------------------------------------------

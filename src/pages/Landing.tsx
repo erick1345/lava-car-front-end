@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 
 interface Servico {
   img: string;
@@ -45,7 +43,6 @@ const UNIDADES = [
 const WHATSAPP = 'https://wa.me/5516999990001';
 
 export default function Landing() {
-  const { isAuthenticated } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [pos, setPos] = useState(50);
   const [enviado, setEnviado] = useState(false);
@@ -72,9 +69,7 @@ export default function Landing() {
           <a href="#resultados" className="lp-nav__link">Antes & Depois</a>
           <a href="#unidades" className="lp-nav__link">Unidades</a>
           <a href="#contato" className="lp-nav__link">Contato</a>
-          <Link to={isAuthenticated ? '/painel' : '/login'} className="lp-btn lp-btn--primary lp-btn--sm">
-            {isAuthenticated ? 'Meu painel' : 'Agendar Agora'}
-          </Link>
+          <a href="#contato" className="lp-btn lp-btn--primary lp-btn--sm">Agendar Agora</a>
         </nav>
       </header>
 
@@ -91,7 +86,7 @@ export default function Landing() {
             Serviço técnico executado por profissionais que amam o que fazem.
           </p>
           <div className="lp-hero__actions">
-            <Link to="/cadastro" className="lp-btn lp-btn--primary">Agendar Agora →</Link>
+            <a href="#contato" className="lp-btn lp-btn--primary">Agendar Agora →</a>
             <a href="#servicos" className="lp-btn lp-btn--dark">Ver Serviços</a>
           </div>
           <div className="lp-hero__stats">
@@ -125,7 +120,7 @@ export default function Landing() {
                   <span className="lp-scard__time">🕒 {s.duracao}</span>
                   <span className="lp-scard__price">{s.preco}</span>
                 </div>
-                <Link to="/cadastro" className="lp-btn lp-btn--primary lp-scard__btn">Agendar</Link>
+                <a href="#contato" className="lp-btn lp-btn--primary lp-scard__btn">Agendar</a>
               </div>
             </article>
           ))}

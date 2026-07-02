@@ -553,6 +553,40 @@ select.field__input option { background: var(--secondary); color: var(--light); 
 .lp-cta .lp-btn--wpp { background: #0f1512; border: 1px solid rgba(255,255,255,0.25); }
 .lp-cta .lp-btn--wpp:hover { background: #22a559; }
 
+/* ---- Carrossel coverflow (Nosso trabalho) ---- */
+.lp-hl { color: var(--primary); }
+.cor { position: relative; max-width: 1100px; margin: 2.5rem auto 0; }
+.cor__stage { position: relative; height: 460px; perspective: 1500px; }
+.cor__slide {
+  position: absolute; top: 50%; left: 50%;
+  width: 260px; height: 420px; margin: -210px 0 0 -130px;
+  border-radius: 22px; overflow: hidden; cursor: pointer; border: 1px solid var(--border);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease, box-shadow 0.4s ease;
+}
+.cor__slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cor__slide--active { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary), 0 0 45px rgba(214, 0, 0, 0.55); }
+.cor__arrow {
+  position: absolute; top: 45%; transform: translateY(-50%); z-index: 30;
+  width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border-strong);
+  background: rgba(0, 0, 0, 0.55); color: #fff; font-size: 1.8rem; line-height: 1; cursor: pointer;
+  backdrop-filter: blur(6px); transition: border-color var(--t), background var(--t);
+}
+.cor__arrow:hover { border-color: var(--primary); background: rgba(0, 0, 0, 0.8); }
+.cor__arrow--prev { left: 0.5rem; }
+.cor__arrow--next { right: 0.5rem; }
+.cor__dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.75rem; }
+.cor__dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 999px; background: rgba(255, 255, 255, 0.25); cursor: pointer; transition: background var(--t), width var(--t); }
+.cor__dot--on { background: var(--primary); width: 24px; }
+
+.lp-cta-inline { text-align: center; margin-top: 3rem; }
+.lp-cta-inline__title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: clamp(1.6rem, 4vw, 2.4rem); margin: 0 0 1.25rem; }
+
+@media (max-width: 620px) {
+  .cor__stage { height: 380px; }
+  .cor__slide { width: 200px; height: 330px; margin: -165px 0 0 -100px; }
+}
+
 /* ---- Unidades + Mapa ---- */
 .lp-unidades { display: grid; grid-template-columns: 1fr 1.25fr; gap: 2rem; align-items: stretch; }
 .lp-unidades__list { display: flex; flex-direction: column; gap: 1rem; }

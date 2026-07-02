@@ -31,6 +31,8 @@
 
 * { box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -356,6 +358,7 @@ select.field__input option { background: var(--secondary); color: var(--light); 
    LANDING PAGE (site público) — estilo detailing premium
    ===================================================================== */
 .lp { color: var(--light); }
+.lp-hero, .lp-section { scroll-margin-top: 78px; }
 .lp-accent { color: var(--primary); display: block; }
 .lp-nav__logo { color: var(--primary); }
 

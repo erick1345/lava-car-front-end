@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
+import { Link } from 'react-router-dom';
+import { BeforeAfter } from '../components/BeforeAfter';
 
 interface Servico {
   img: string;
@@ -44,7 +46,6 @@ const WHATSAPP = 'https://wa.me/5516999990001';
 
 export default function Landing() {
   const [scrolled, setScrolled] = useState(false);
-  const [pos, setPos] = useState(50);
   const [enviado, setEnviado] = useState(false);
 
   useEffect(() => {
@@ -66,8 +67,7 @@ export default function Landing() {
         <nav className="lp-nav__menu">
           <a href="#top" className="lp-nav__link">Início</a>
           <a href="#servicos" className="lp-nav__link">Serviços</a>
-          <a href="#resultados" className="lp-nav__link">Antes & Depois</a>
-          <a href="#unidades" className="lp-nav__link">Unidades</a>
+          <Link to="/galeria" className="lp-nav__link">Galeria</Link>
           <a href="#contato" className="lp-nav__link">Contato</a>
           <a href="#contato" className="lp-btn lp-btn--primary lp-btn--sm">Agendar Agora</a>
         </nav>
@@ -150,22 +150,9 @@ export default function Landing() {
           <h2 className="lp-section__title">Antes & depois</h2>
           <p className="lp-section__text">Arraste para ver a diferença que um trabalho técnico faz.</p>
         </div>
-        <div className="lp-ba">
-          <img className="lp-ba__base" src="/img/antes.jpg" alt="Antes do serviço" />
-          <div className="lp-ba__after" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-            <img src="/img/depois.jpg" alt="Depois do serviço" />
-          </div>
-          <div className="lp-ba__divider" style={{ left: `${pos}%` }}>
-            <span className="lp-ba__handle">⇆</span>
-          </div>
-          <span className="lp-ba__tag lp-ba__tag--l">Antes</span>
-          <span className="lp-ba__tag lp-ba__tag--r">Depois</span>
-          <input
-            className="lp-ba__range"
-            type="range" min="0" max="100" value={pos}
-            onChange={(e) => setPos(Number(e.target.value))}
-            aria-label="Comparar antes e depois"
-          />
+        <BeforeAfter before="/img/antes.jpg" after="/img/depois.jpg" />
+        <div className="lp-ba-cta">
+          <Link to="/galeria" className="lp-btn lp-btn--dark">Ver galeria completa →</Link>
         </div>
       </section>
 
